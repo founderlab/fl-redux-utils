@@ -1,0 +1,49 @@
+{
+  "name": "fl-redux-utils",
+  "version": "0.1.0",
+  "description": "Boilerplate and helper functions for redux that can be shared amongst FounderLab apps",
+  "main": "lib/index.js",
+  "author": {
+    "name": "Gwilym Humphreys",
+    "url": "https://github.com/gwilymhumphreys"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/founderlab/fl-redux-utils.git"
+  },
+  "scripts": {
+    "prepublish": "rm -rf ./lib && babel ./src --ignore '/node_modules/' --out-dir ./lib",
+    "build": "rm -rf ./lib && babel ./src --ignore '/node_modules/' --out-dir ./lib",
+    "watch": "rm -rf ./lib && babel ./src --ignore '/node_modules/' --watch --out-dir ./lib",
+    "test": "eval $(cat test/.env) mocha test/**/*.tests.js",
+    "cover": "eval $(cat test/.env) istanbul cover _mocha -- test/**/*.tests.js"
+  },
+  "dependencies": {
+    "fl-utils": "^0.1.0",
+    "classnames": "^2.2.3",
+    "immutable": "^3.7.4",
+    "lodash": "^4.0.0",
+    "queue-async": "^1.0.7",
+    "warning": "^2.1.0"
+  },
+  "// wouldBePeerDependencies": {
+    "react": "*",
+    "redux": "*",
+    "redux-router": "*",
+    "reselect": "*"
+  },
+  "devDependencies": {
+    "babel": "^5.8.38",
+    "babel-eslint": "^6.0.4",
+    "eslint": "^1.5.1",
+    "eslint-config-founderlab": "^0.1.0",
+    "eslint-plugin-react": "^3.4.2",
+    "expect": "^1.13.0",
+    "mocha": "^2.2.5",
+    "react": "^15.1.0",
+    "redux-router": "^1.0.0-beta8",
+    "reselect": "^2.5.1",
+    "sinon": "^1.17.1"
+  }
+}
