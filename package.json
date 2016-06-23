@@ -30,7 +30,6 @@
   "// wouldBePeerDependencies": {
     "react": "*",
     "redux": "*",
-    "redux-router": "*",
     "reselect": "*"
   },
   "devDependencies": {
