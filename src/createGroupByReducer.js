@@ -1,13 +1,13 @@
 import _ from 'lodash'
 import warning from 'warning'
-import {Set, fromJS} from 'immutable'
+import {Set, List, fromJS} from 'immutable'
 
 export default function createGroupByReducer(actionTypes, groupingKey, options={}) {
-  const groupedDefaultState = fromJS({})
+  const defaultState = fromJS({})
   const [loadAction, deleteAction] = actionTypes
   const keyFn = options.keyFn || (val => val ? `${val}` : null)
 
-  return function groupBy(_state=groupedDefaultState, action={}) {
+  return function groupBy(_state=defaultState, action={}) {
     let state = _state
 
     if (deleteAction && action.type === deleteAction) {
@@ -43,6 +43,8 @@ export default function createGroupByReducer(actionTypes, groupingKey, options={
         }
         else {
           groupState = state.get(key) || new Set()
+          if (List.isList(groupState)) groupState = new Set(groupState.toJSON())
+
           _.forEach(models, model => {
             if (!groupState.includes(model.id)) groupState = groupState.add(model.id)
           })
