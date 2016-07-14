@@ -4,13 +4,28 @@ import {Set, List, fromJS} from 'immutable'
 
 export default function createGroupByReducer(actionTypes, groupingKey, options={}) {
   const defaultState = fromJS({})
-  const [loadAction, deleteAction] = actionTypes
+  let load
+  let del
+  let loadActions
+  let deleteActions
+
+  if (_.isArray(actionTypes)) {
+    load = actionTypes[0]
+    del = actionTypes[1]
+  }
+  else if (_.isObject(actionTypes)) {
+    load = actionTypes.load
+    del = actionTypes.del
+  }
+  if (load) loadActions = _.isArray(load) ? load : [load]
+  if (del) deleteActions = _.isArray(del) ? del : [del]
+
   const keyFn = options.keyFn || (val => val ? `${val}` : null)
 
   return function groupBy(_state=defaultState, action={}) {
     let state = _state
 
-    if (deleteAction && action.type === deleteAction) {
+    if (deleteActions && _.includes(deleteActions, action.type)) {
       const id = action.deletedModel.id
       const _key = groupingKey(action.deletedModel)
       const key = keyFn(_key)
@@ -30,7 +45,7 @@ export default function createGroupByReducer(actionTypes, groupingKey, options={
       }
     }
 
-    else if (action.type === loadAction) {
+    else if (loadActions && _.includes(loadActions, action.type)) {
       const byGroup = _.groupBy(action.models, model => groupingKey(model))
 
       _.forEach(byGroup, (models, _key) => {
