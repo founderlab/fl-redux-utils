@@ -27,7 +27,9 @@ observeStore(
 )
 ```
 
-Here's an example where we're setting a bearer token on future requests when we detect that the current user's access token has been added or changed in our auth reducer:
+Example:
+
+Here we're detecting when the current user's access token has been added or changed in our auth reducer. Then setting a bearer token on future requests when it does.
 
 ```javascript
 observeStore(store, store => store.auth.accessToken, accessToken => {
