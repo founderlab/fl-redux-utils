@@ -20,7 +20,6 @@
     "cover": "eval $(cat test/.env) istanbul cover _mocha -- test/**/*.tests.js"
   },
   "dependencies": {
-    "fl-utils": "^0.1.0",
     "classnames": "^2.2.3",
     "immutable": "^3.7.4",
     "lodash": "^4.0.0",
