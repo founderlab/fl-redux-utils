@@ -20,13 +20,13 @@ export default function createGroupByReducer(actionTypes, groupingKey, options={
   if (load) loadActions = _.isArray(load) ? load : [load]
   if (del) deleteActions = _.isArray(del) ? del : [del]
 
-  const keyFn = options.keyFn || (val => val ? `${val}` : null)
+  const keyFn = options.keyFn || (val => val ? val.toString() : null)
 
   return function groupBy(_state=defaultState, action={}) {
     let state = _state
 
     if (deleteActions && _.includes(deleteActions, action.type)) {
-      const id = action.deletedModel.id
+      const id = action.deletedModel.id.toString()
       const _key = groupingKey(action.deletedModel)
       const key = keyFn(_key)
       const current = state.get(key)
@@ -54,14 +54,15 @@ export default function createGroupByReducer(actionTypes, groupingKey, options={
         let groupState
 
         if (options.single) {
-          groupState = models[0] && models[0].id
+          groupState = models[0] && models[0].id.toString()
         }
         else {
           groupState = state.get(key) || new Set()
           if (List.isList(groupState)) groupState = new Set(groupState.toJSON())
 
           _.forEach(models, model => {
-            if (!groupState.includes(model.id)) groupState = groupState.add(model.id)
+            const id = model.id.toString()
+            if (!groupState.includes(id)) groupState = groupState.add(id)
           })
         }
         state = state.merge({[key]: groupState})
