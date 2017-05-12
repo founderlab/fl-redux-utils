@@ -7,12 +7,19 @@ function paginationState(state, paginateOn) {
 }
 
 const defaultSelect = () => {}
+const defaults = {
+  loadingName: 'loading',
+  modelsName: 'models',
+  paginationName: 'pagination',
+}
 
-export default function createPaginationSelector(paginateOn, selectState=defaultSelect) {
+export default function createPaginationSelector(paginateOn, selectState=defaultSelect, _options={}) {
+  const options = _.defaults(_options, defaults)
+  console.log('options', options)
   return createSelector(
-    state => state[paginateOn].get('loading'),
-    state => state[paginateOn].get('models'),
-    state => state[paginateOn].get('pagination'),
+    state => state[paginateOn].get(options.loadingName),
+    state => state[paginateOn].get(options.modelsName),
+    state => state[paginateOn].get(options.paginationName),
     selectState,
     (loading, models, pagination, selectedState) => {
       const visibleItems = []
