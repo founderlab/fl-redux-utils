@@ -5,7 +5,7 @@ export default function createPaginationReducer(actionType, options={}) {
 
   const defaultState = fromJS({
     visible: [],
-    currentPage: 1,
+    currentPage: 0,
   })
 
   return function pagination(_state=defaultState, action={}) {
@@ -21,7 +21,9 @@ export default function createPaginationReducer(actionType, options={}) {
     }
 
     else if (action.type === actionType + '_LOAD_SUCCESS' && action.page) {
-      if (options.append) {
+      if (options.append && action.page > +state.get('currentPage')) {
+        // Only append if the page being loaded is higher than the current page
+        // If a lower number assume it's a refresh and behave as if append was not set
         const current = state.get('visible').toJSON()
         state = state.merge({visible: current.concat(action.ids), currentPage: action.page})
       }
