@@ -5,6 +5,7 @@ export default function createPaginationReducer(actionType, options={}) {
 
   const defaultState = fromJS({
     visible: [],
+    total: 0,
     currentPage: 0,
   })
 
