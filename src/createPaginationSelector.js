@@ -15,7 +15,7 @@ const defaults = {
 
 export default function createPaginationSelector(paginateOn, selectState=defaultSelect, _options={}) {
   const options = _.defaults(_options, defaults)
-  console.log('options', options)
+
   return createSelector(
     state => state[paginateOn].get(options.loadingName),
     state => state[paginateOn].get(options.modelsName),
