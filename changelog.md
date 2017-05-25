@@ -1,6 +1,20 @@
 
 ## [Unreleased]
   
+## [0.5.0]
+  - [createPaginationReducer] Added `countSuffix`, `deleteSuffix` and `loadSuffix` options so actions do not have to conform to harcoded conventions.
+  - [createPaginationReducer] `deleteSuffix` defaults to `_DELETE_SUCCESS` rather than `_DEL_SUCCESS`
+
+## [0.4.3]
+  - [createPaginationSelector] Removed `loading` from selector, which now includes `totalItems`.
+
+## [0.4.0]
+  - [createPaginationReducer] Added `append` option for endless scrolling style loading. When true the list of visibleItems will continue to grow rather than reset with each page of results loaded.
+  - [createPaginationSelector] Added `modelsName` and `paginationName` options to allow for multiple paginations per reducer. The former is the name of the model map on the reducer (usually 'models') and the latter is the name of the pagination results on the reducer (usually 'pagination'). 
+
+## [0.3.0]
+  - Added support for a function on options, `keyFromAction`. If present, it's called with the current action and should return a key for which a set will be initialised even when there are no models on the action. 
+  - Removing a key now empties its set rather than deleting the key.
 
 ## [0.3.0]
   - Added support for a function on options, `keyFromAction`. If present, it's called with the current action and should return a key for which a set will be initialised even when there are no models on the action. 
